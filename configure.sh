@@ -118,8 +118,8 @@ function enter_variable_hidden() {
 ## Move and apply the custom configuration
 mv alis.conf alis.conf.bak
 awk -F= '!a[$1]++' alis_custom.conf alis.conf.bak > alis.conf
-mv alis_packages.conf alis_packages.conf.bak
-awk -F= '!a[$1]++' alis_packages_custom.conf alis_packages.conf.bak > alis_packages.conf
+mv alis-packages.conf alis-packages.conf.bak
+awk -F= '!a[$1]++' alis_packages_custom.conf alis-packages.conf.bak > alis-packages.conf
 
 echo "When entering passwords, passwords will be displayed in plaintext. Check your surroundings."
 
