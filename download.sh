@@ -9,7 +9,7 @@ rm -f alis_package_custom.sh
 rm -f configure.sh
 
 wget https://raw.githubusercontent.com/r1cebank/alis-conf/main/alis_custom.conf
-wget https://raw.githubusercontent.com/r1cebank/alis-conf/main/alis_packages_custom.sh
+wget https://raw.githubusercontent.com/r1cebank/alis-conf/main/alis_packages_custom.conf
 wget https://raw.githubusercontent.com/r1cebank/alis-conf/main/configure.sh
 
 chmod +x alis_custom.sh
