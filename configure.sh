@@ -121,40 +121,16 @@ awk -F= '!a[$1]++' alis_custom.conf alis.conf.bak > alis.conf
 mv alis-packages.conf alis-packages.conf.bak
 awk -F= '!a[$1]++' alis_packages_custom.conf alis-packages.conf.bak > alis-packages.conf
 
-echo "When entering passwords, passwords will be displayed in plaintext. Check your surroundings."
 
-if ask "Wireless install?"; then
-  interface=$(enter_variable " - Wireless interface", "wlan0")
-  ssid=$(enter_variable " - SSID")
-  wireless_pass=$(enter_variable " - Wireless password")
-  sed -i "s/WIFI_INTERFACE=\"\"/WIFI_INTERFACE=\"$interface\"/g" ./alis.conf
-  sed -i "s/WIFI_ESSID=\".*\"/WIFI_ESSID=\"$ssid\"/g" ./alis.conf
-  sed -i "s/WIFI_KEY=\".*\"/WIFI_KEY=\"$wireless_pass\"/g" ./alis.conf
-fi
-
-if ask "Enable LUKS?"; then
-    luks_pass=$(enter_variable " - LUKS encryption password")
-    sed -i "s/LUKS_PASSWORD=\".*\"/LUKS_PASSWORD=\"$luks_pass\"/g" ./alis.conf
-    sed -i "s/LUKS_PASSWORD_RETYPE=\".*\"/LUKS_PASSWORD_RETYPE=\"$luks_pass\"/g" ./alis.conf
-else
-    sed -i "s/LUKS_PASSWORD=\".*\"/LUKS_PASSWORD=\"\"/g" ./alis.conf
-    sed -i "s/LUKS_PASSWORD_RETYPE=\".*\"/LUKS_PASSWORD_RETYPE=\"\"/g" ./alis.conf
+if ask "Custom mirror?"; then
+  mirror=$(enter_variable " - Custom mirror")
+  sed -i "s/PACMAN_MIRROR=\".*\"/PACMAN_MIRROR=\"$mirror\"/g" ./alis.conf
 fi
 
 # Hostname
 hostname=$(enter_variable " - Hostname?", $HOSTNAME)
 sed -i "s/^HOSTNAME=\".*\"/HOSTNAME=\"$hostname\"/g" ./alis.conf
 
-# Root password
-root_pass=$(enter_variable " - Root password")
-sed -i "s/ROOT_PASSWORD=\".*\"/ROOT_PASSWORD=\"$root_pass\"/g" ./alis.conf
-sed -i "s/ROOT_PASSWORD_RETYPE=\".*\"/ROOT_PASSWORD_RETYPE=\"$root_pass\"/g" ./alis.conf
-
 # Username
 username=$(enter_variable " - Username", $USER_NAME)
 sed -i "s/USER_NAME=\".*\"/USER_NAME=\"$username\"/g" ./alis.conf
-
-# User password
-user_pass=$(enter_variable " - Password for $username")
-sed -i "s/USER_PASSWORD=\".*\"/USER_PASSWORD=\"$user_pass\"/g" ./alis.conf
-sed -i "s/USER_PASSWORD_RETYPE=\".*\"/USER_PASSWORD_RETYPE=\"$user_pass\"/g" ./alis.conf
