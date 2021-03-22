@@ -121,11 +121,17 @@ awk -F= '!a[$1]++' alis_custom.conf alis.conf.bak > alis.conf
 mv alis-packages.conf alis-packages.conf.bak
 awk -F= '!a[$1]++' alis_packages_custom.conf alis-packages.conf.bak > alis-packages.conf
 
+optional_firmware="mkinitcpio-firmware"
 
 if ask "Custom mirror?"; then
   mirror=$(enter_variable " - Custom mirror")
   sed -i "s/PACMAN_MIRROR=\".*\"/PACMAN_MIRROR=\"$mirror\"/g" ./alis.conf
 fi
+
+if ask "Optional firmware?"; then
+  sed -i "s/PACKAGES_AUR_CUSTOM=\"\(.*\)\"/PACKAGES_AUR_CUSTOM=\"$optional_firmware \1\"/g" ./alis-packages.conf
+fi
+
 
 # Hostname
 hostname=$(enter_variable " - Hostname?", $HOSTNAME)
